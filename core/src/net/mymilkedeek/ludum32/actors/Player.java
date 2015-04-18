@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * 18/04/2015 - 11:14
- *
  * @author Michaël
  */
 public class Player extends Actor {
