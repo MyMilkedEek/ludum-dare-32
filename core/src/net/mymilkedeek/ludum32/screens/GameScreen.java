@@ -39,6 +39,7 @@ public class GameScreen extends ScreenAdapter {
         this.stage.draw();
 
         if ( player.shot() ) {
+            // TODO decide on rotation and which parts to draw
             this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             this.shapeRenderer.rect(0, 0, 800, 250);
             this.shapeRenderer.end();
@@ -51,7 +52,7 @@ public class GameScreen extends ScreenAdapter {
 
         // stage settings
         this.stage = new Stage(new FitViewport(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT));
-        this.player = new Player(50f, 50f);
+        this.player = new Player(400f, 250f);
         this.stage.addActor(this.player);
 
         // input settings
