@@ -26,6 +26,7 @@ public class GameScreen extends ScreenAdapter {
 
     // ugliness be damned
     private ShapeRenderer shapeRenderer;
+    private float originalOrientation;
 
     public GameScreen() {
         // empty for now
@@ -39,15 +40,27 @@ public class GameScreen extends ScreenAdapter {
         this.stage.act(delta);
         this.stage.draw();
 
+        if ( this.player.rotationChanged() ) {
+            Gdx.app.debug(TAG, "Rotation change : " + this.player.getRotation());
+            this.shapeRenderer.rotate(0, 0, 1, this.player.getRotation());
+        }
+
         if ( player.shot() ) {
             // TODO decide on rotation and which parts to draw
             this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            if ( this.player.rotationChanged() ) {
-                this.shapeRenderer.rotate(0, 0, 1, this.player.getRotation());
-                this.player.setRotationChanged(false);
+            if ( this.player.shotLeft() ) {
+                this.shapeRenderer.rect(-600, -1000, 600, 2000);
             }
-            this.shapeRenderer.rect(0, 0, 400, 500);
+
+            if ( this.player.shotRight() ) {
+                this.shapeRenderer.rect(0, -1000, 600, 2000);
+            }
             this.shapeRenderer.end();
+        }
+
+        if ( this.player.rotationChanged() ) {
+            this.shapeRenderer.rotate(0, 0, 1, -1* this.player.getRotation());
+            this.player.setRotationChanged(false);
         }
 
         SpriteBatch batch = (SpriteBatch) this.stage.getBatch();
@@ -79,5 +92,8 @@ public class GameScreen extends ScreenAdapter {
         // shapeRenderer init
         this.shapeRenderer = new ShapeRenderer();
         this.shapeRenderer.setColor(Color.BLACK);
+        this.shapeRenderer.identity();
+        this.shapeRenderer.translate(400f, 250f, 0f);
+        this.originalOrientation = 0f;
     }
 }

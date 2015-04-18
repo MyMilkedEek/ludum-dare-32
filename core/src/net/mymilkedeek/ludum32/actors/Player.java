@@ -13,6 +13,7 @@ public class Player extends Image {
     private boolean shotLeft;
     private boolean shotRight;
     private boolean rotationChanged;
+    private float rotationChange;
 
     public Player(String path) {
         super(new Texture(path));
@@ -33,6 +34,7 @@ public class Player extends Image {
 
     @Override
     public void setRotation(float degrees) {
+        this.rotationChange = super.getRotation() - degrees;
         super.setRotation(degrees);
         this.rotationChanged = true;
     }
@@ -42,10 +44,22 @@ public class Player extends Image {
     }
 
     public boolean rotationChanged() {
-        return false;
+        return this.rotationChanged;
     }
 
     public void setRotationChanged(boolean rotationChanged) {
         this.rotationChanged = rotationChanged;
+    }
+
+    public float getRotationChange() {
+        return rotationChange;
+    }
+
+    public boolean shotLeft() {
+        return this.shotLeft;
+    }
+
+    public boolean shotRight() {
+        return this.shotRight;
     }
 }

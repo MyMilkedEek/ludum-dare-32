@@ -81,6 +81,7 @@ public class KeyboardInput extends InputAdapter {
 
             case Input.Buttons.RIGHT:
                 Gdx.app.debug(TAG, "Right mouse click");
+                player.shoot(1);
                 return true;
         }
 
