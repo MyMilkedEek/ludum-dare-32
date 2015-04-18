@@ -23,8 +23,8 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        stage.draw();
         stage.act(delta);
+        stage.draw();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class GameScreen extends ScreenAdapter {
         Gdx.app.debug(TAG, "GameScreen show.");
         this.stage = new Stage(new FitViewport(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT));
 
-        this.player = new Player();
+        this.player = new Player(50f, 50f);
 
         this.stage.addActor(this.player);
     }
