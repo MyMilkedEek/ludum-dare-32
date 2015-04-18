@@ -3,9 +3,7 @@ package net.mymilkedeek.ludum32.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.MathUtils;
 import net.mymilkedeek.ludum32.actors.Player;
-import net.mymilkedeek.ludum32.utils.Globals;
 import net.mymilkedeek.ludum32.utils.KeyConfig;
 
 /**
@@ -27,12 +25,14 @@ public class KeyboardInput extends InputAdapter {
         switch ( keycode ) {
             case KeyConfig.LEFT:
                 Gdx.app.debug(TAG, "Player move left request.");
+                player.rotateLeft();
                 return true;
             case KeyConfig.UP:
                 Gdx.app.debug(TAG, "Player move up request.");
                 return true;
             case KeyConfig.RIGHT:
                 Gdx.app.debug(TAG, "Player move right request.");
+                player.rotateRight();
                 return true;
             case KeyConfig.DOWN:
                 Gdx.app.debug(TAG, "Player move down request.");
@@ -51,12 +51,18 @@ public class KeyboardInput extends InputAdapter {
         switch ( keycode ) {
             case KeyConfig.LEFT:
                 Gdx.app.debug(TAG, "Player move left request ended.");
+                if ( player.rotationState() > 0 ) {
+                    player.cancelRotation();
+                }
                 return true;
             case KeyConfig.UP:
                 Gdx.app.debug(TAG, "Player move up request ended.");
                 return true;
             case KeyConfig.RIGHT:
                 Gdx.app.debug(TAG, "Player move right request ended.");
+                if ( player.rotationState() < 0 ) {
+                    player.cancelRotation();
+                }
                 return true;
             case KeyConfig.DOWN:
                 Gdx.app.debug(TAG, "Player move down request ended.");
@@ -90,7 +96,7 @@ public class KeyboardInput extends InputAdapter {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        int x = screenX;
+        /*int x = screenX;
         int y = Globals.WORLD_HEIGHT - screenY;
 
         float rotation = MathUtils.radiansToDegrees * MathUtils.atan2(y - player.getY(), x - player.getX());
@@ -99,8 +105,8 @@ public class KeyboardInput extends InputAdapter {
 
         Gdx.app.debug(TAG, "Mouse movement: " + x + ", " + y + ". Rotation: " + rotation);
 
-        player.setRotation(rotation);
+        player.setRotation(rotation);*/
 
-        return true;
+        return false;
     }
 }

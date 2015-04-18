@@ -12,6 +12,10 @@ public class Player extends Image {
 
     private boolean shotLeft;
     private boolean shotRight;
+
+    private int rotationState = 0;
+
+
     private boolean rotationChanged;
     private float rotationChange;
 
@@ -22,6 +26,11 @@ public class Player extends Image {
     @Override
     public void act(float delta) {
         super.act(delta);
+
+        if ( rotationState != 0) {
+            super.rotateBy(rotationState);
+            this.setRotationChanged(true);
+        }
     }
 
     public void shoot(int i) {
@@ -61,5 +70,29 @@ public class Player extends Image {
 
     public boolean shotRight() {
         return this.shotRight;
+    }
+
+    public void rotateLeft() {
+        if ( rotationState != 0 ) {
+            return;
+        }
+
+        rotationState = 3;
+    }
+
+    public void rotateRight() {
+        if ( rotationState != 0 ) {
+            return;
+        }
+
+        rotationState = -3;
+    }
+
+    public void cancelRotation() {
+        rotationState = 0;
+    }
+
+    public int rotationState() {
+        return rotationState;
     }
 }
