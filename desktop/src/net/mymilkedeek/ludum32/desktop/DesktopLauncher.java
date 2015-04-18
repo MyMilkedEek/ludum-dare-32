@@ -6,6 +6,7 @@ import net.mymilkedeek.ludum32.GameInstance;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
+		System.setProperty("user.name", "Michael");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new GameInstance(), config);
 	}
