@@ -13,6 +13,9 @@ public class Player extends Actor {
 
     private final Texture image;
 
+    private boolean shotLeft;
+    private boolean shotRight;
+
     public Player(final float initialX, final float initialY) {
         this.image = new Texture("player/test.png");
 
@@ -23,10 +26,24 @@ public class Player extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(image, super.getX(), super.getY());
+
+
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
+    }
+
+    public void shoot(int i) {
+        if ( i == 0 ) {
+            this.shotLeft = true;
+        } else {
+            this.shotRight = true;
+        }
+    }
+
+    public boolean shot() {
+        return shotRight || shotLeft;
     }
 }

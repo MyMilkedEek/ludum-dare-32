@@ -3,6 +3,9 @@ package net.mymilkedeek.ludum32.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import net.mymilkedeek.ludum32.actors.Player;
@@ -20,14 +23,26 @@ public class GameScreen extends ScreenAdapter {
     private Player player;
     private InputMultiplexer inputMultiplexer;
 
+    // ugliness be damned
+    private ShapeRenderer shapeRenderer;
+
     public GameScreen() {
         // empty for now
     }
 
     @Override
     public void render(float delta) {
-        stage.act(delta);
-        stage.draw();
+        Gdx.gl.glClearColor(.135f, .206f, .235f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        this.stage.act(delta);
+        this.stage.draw();
+
+        if ( player.shot() ) {
+            this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            this.shapeRenderer.rect(0, 0, 800, 250);
+            this.shapeRenderer.end();
+        }
     }
 
     @Override
@@ -45,5 +60,9 @@ public class GameScreen extends ScreenAdapter {
         this.inputMultiplexer.addProcessor(this.stage);
         // of course
         Gdx.input.setInputProcessor(this.inputMultiplexer);
+
+        // shapeRenderer init
+        this.shapeRenderer = new ShapeRenderer();
+        this.shapeRenderer.setColor(Color.BLACK);
     }
 }

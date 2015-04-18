@@ -1,6 +1,7 @@
 package net.mymilkedeek.ludum32.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import net.mymilkedeek.ludum32.actors.Player;
 import net.mymilkedeek.ludum32.utils.KeyConfig;
@@ -33,6 +34,27 @@ public class KeyboardInput extends InputAdapter {
                 return true;
             case KeyConfig.DOWN:
                 Gdx.app.debug(TAG, "Player move down request.");
+                return true;
+        }
+
+        return false;
+    }
+
+    /*
+     * Clip half of the screen!
+     */
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        Gdx.app.debug(TAG, "Mouse click received");
+
+        switch ( button ) {
+            case Input.Buttons.LEFT:
+                Gdx.app.debug(TAG, "Left mouse click");
+                player.shoot(0);
+                return true;
+
+            case Input.Buttons.RIGHT:
+                Gdx.app.debug(TAG, "Right mouse click");
                 return true;
         }
 
