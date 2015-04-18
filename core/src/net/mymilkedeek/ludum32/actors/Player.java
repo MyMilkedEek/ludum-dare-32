@@ -1,33 +1,20 @@
 package net.mymilkedeek.ludum32.actors;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
  * @author Michaël
  */
-public class Player extends Actor {
+public class Player extends Image {
 
     private final String TAG = "net.mymilkedeek.ludum32.actors.Player";
-
-    private final Texture image;
 
     private boolean shotLeft;
     private boolean shotRight;
 
-    public Player(final float initialX, final float initialY) {
-        this.image = new Texture("player/test.png");
-
-        super.setX(initialX);
-        super.setY(initialY);
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        batch.draw(image, super.getX(), super.getY());
-
-
+    public Player(String path) {
+        super(new Texture(path));
     }
 
     @Override

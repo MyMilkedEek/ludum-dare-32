@@ -52,7 +52,10 @@ public class GameScreen extends ScreenAdapter {
 
         // stage settings
         this.stage = new Stage(new FitViewport(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT));
-        this.player = new Player(400f, 250f);
+        this.player = new Player("player/player.png");
+        this.player.setX(384f);
+        this.player.setY(227f);
+        this.player.setOrigin(16f, 32f);
         this.stage.addActor(this.player);
 
         // input settings
