@@ -1,5 +1,6 @@
 package net.mymilkedeek.ludum32.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -10,8 +11,8 @@ public class Player extends Image {
 
     private final String TAG = "net.mymilkedeek.ludum32.actors.Player";
 
-    private boolean shotLeft;
-    private boolean shotRight;
+    private float leftCounter;
+    private float rightCounter;
 
     private int rotationState = 0;
 
@@ -31,13 +32,24 @@ public class Player extends Image {
             super.rotateBy(rotationState);
             this.setRotationChanged(true);
         }
+
+        Gdx.app.debug(TAG, delta + " delta");
+
+        if ( leftCounter > 0 ) {
+            Gdx.app.debug(TAG, leftCounter + " lc");
+            leftCounter-=delta;
+        }
+
+        if ( rightCounter > 0 ) {
+            rightCounter -= delta;
+        }
     }
 
     public void shoot(int i) {
         if ( i == 0 ) {
-            this.shotLeft = true;
+            leftCounter = 1.0f;
         } else {
-            this.shotRight = true;
+            rightCounter = 1.0f;
         }
     }
 
@@ -49,7 +61,7 @@ public class Player extends Image {
     }
 
     public boolean shot() {
-        return shotRight || shotLeft;
+        return shotRight() || shotLeft();
     }
 
     public boolean rotationChanged() {
@@ -65,11 +77,11 @@ public class Player extends Image {
     }
 
     public boolean shotLeft() {
-        return this.shotLeft;
+        return leftCounter > 0;
     }
 
     public boolean shotRight() {
-        return this.shotRight;
+        return rightCounter > 0;
     }
 
     public void rotateLeft() {
