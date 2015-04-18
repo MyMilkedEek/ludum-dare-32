@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -41,9 +42,18 @@ public class GameScreen extends ScreenAdapter {
         if ( player.shot() ) {
             // TODO decide on rotation and which parts to draw
             this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            this.shapeRenderer.rect(0, 0, 800, 250);
+            if ( this.player.rotationChanged() ) {
+                this.shapeRenderer.rotate(0, 0, 1, this.player.getRotation());
+                this.player.setRotationChanged(false);
+            }
+            this.shapeRenderer.rect(0, 0, 400, 500);
             this.shapeRenderer.end();
         }
+
+        SpriteBatch batch = (SpriteBatch) this.stage.getBatch();
+        batch.begin();
+        this.player.draw(batch, 1f);
+        batch.end();
     }
 
     @Override
@@ -64,6 +74,7 @@ public class GameScreen extends ScreenAdapter {
         this.inputMultiplexer.addProcessor(this.stage);
         // of course
         Gdx.input.setInputProcessor(this.inputMultiplexer);
+        Gdx.input.setCursorCatched(true);
 
         // shapeRenderer init
         this.shapeRenderer = new ShapeRenderer();

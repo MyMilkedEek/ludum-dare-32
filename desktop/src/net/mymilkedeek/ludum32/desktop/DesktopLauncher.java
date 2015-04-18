@@ -8,6 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		System.setProperty("user.name", "Michael");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = 800;
+		config.height = 500;
 		new LwjglApplication(new GameInstance(), config);
 	}
 }
